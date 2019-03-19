@@ -4,9 +4,6 @@
 #include <netinet/in.h> 
 #include <string.h>
 #include <unistd.h>
-#include <apr.h>
-#if APR_HAVE_STDINT_H
-#include <stdint.h>
 #include "SSD1306_LCD.h"    
 #include "system.h"        
 #include <xc.h>
