@@ -3,6 +3,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <unistd.h>
 
 char enterChar();
 int main(int argc, char *argv[]) 
