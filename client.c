@@ -4,6 +4,18 @@
 #include <netinet/in.h> 
 #include <string.h>
 #include <unistd.h>
+#include <apr.h>
+#if APR_HAVE_STDINT_H
+#include <stdint.h>
+#include "SSD1306_LCD.h"    
+#include "system.h"        
+#include <xc.h>
+#include <string.h>
+#include <math.h>
+#include <libpic30.h>      
+#include <stdint.h>
+#include <stdbool.h>
+#include "GenericTypeDefs.h"
 #define PORT 8080 
    
 int main(int argc, char const *argv[]) 
