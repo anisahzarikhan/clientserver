@@ -15,12 +15,13 @@ public class Server
         try
         { 
             server = new ServerSocket(port); 
-            System.out.println("Server started"); 
+            System.out.println("Server has started"); 
   
-            System.out.println("Waiting for a client ..."); 
+            System.out.println("Waiting for a client to come in ..."); 
   
             socket = server.accept(); 
-            System.out.println("Client accepted"); 
+            System.out.println("Client has been accepted"); 
+            System.out.println("Hello!");
   
             // takes input from the client socket 
             in = new DataInputStream( 
@@ -37,20 +38,20 @@ public class Server
                     System.out.println(line); 
   
                 } 
-                catch(IOException i) 
+                catch(IOException o) 
                 { 
-                    System.out.println(i); 
+                    System.out.println(o); 
                 } 
-            } 
+            }
             System.out.println("Closing connection"); 
   
             // close connection 
             socket.close(); 
             in.close(); 
         } 
-        catch(IOException i) 
+        catch(IOException o) 
         { 
-            System.out.println(i); 
+            System.out.println(o); 
         } 
     } 
   
