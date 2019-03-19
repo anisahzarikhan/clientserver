@@ -1,43 +1,49 @@
-#include <stdio.h> 
-#include <sys/socket.h> 
-#include <stdlib.h> 
-#include <netinet/in.h> 
-#include <string.h> 
-#define PORT 8080 
-   
-int main(int argc, char const *argv[]) 
-{ 
-    struct sockaddr_in address;
-    int sock = 0; 
-    struct sockaddr_in serv_addr; 
-    char*hi = "What's up from client"; 
-    char buffer[1024] = {0}; 
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) 
-    { 
-        printf("\n Socket creation error \n"); 
-        return -1; 
-    } 
-   
-    memset(&serv_addr, '0', sizeof(serv_addr)); 
-   
-    serv_addr.sin_family = AF_INET; 
-    serv_addr.sin_port = htons(PORT); 
-       
-    // Convert IPv4 and IPv6 addresses from text to binary form 
-    
-    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0)  
-    { 
-        printf("\nInvalid address/ Address not supported \n"); 
-        return -1; 
-    } 
-   
-    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) 
-    { 
-        printf("\nConnection Failed \n"); 
-        return -1; 
-    } 
-    send(sock , hi , strlen(hi) , 0 ); 
-    printf("What's up!\n"); 
-    printf("%s\n",buffer ); 
-    return 0; 
-} 
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include <sys/socket.h>
+#include <resolv.h>
+
+#define PORT_TIME       13              /* "time" (not available on RedHat) */
+#define PORT_FTP        21              /* FTP connection port */
+#define SERVER_ADDR     "192.168.81.130"     /* localhost */
+#define MAXBUF          1024
+
+int main()
+{   int sockfd;
+    struct sockaddr_in dest;
+    char buffer[MAXBUF];
+
+    /*---Open socket for streaming---*/
+    if ( (sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 )
+    {
+        perror("Socket");
+        exit(errno);
+    }
+
+    /*---Initialize server address/port struct---*/
+    bzero(&dest, sizeof(dest));
+    dest.sin_family = AF_INET;
+    dest.sin_port = htons(PORT_FTP);
+    if ( inet_aton(SERVER_ADDR, &dest.sin_addr.s_addr) == 0 )
+    {
+        perror(SERVER_ADDR);
+        exit(errno);
+    }
+
+    /*---Connect to server---*/
+    if ( connect(sockfd, (struct sockaddr*)&dest, sizeof(dest)) != 0 )
+    {
+        perror("Connect ");
+        exit(errno);
+    }
+
+    /*---Get "What's Up?"---*/
+    bzero(buffer, MAXBUF);
+    recv(sockfd, buffer, sizeof(buffer), 0);
+    printf("%s", buffer);
+
+    /*---Clean up---*/
+    close(sockfd);
+    return 0;
+}
