@@ -6,12 +6,12 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <resolv.h>
-#define MAX 100 
+#define MAX 80 
 #define PORT 8080 
 #define SA struct sockaddr 
 void func(int sockfd) 
 { 
-    char buff[MAX]; 
+    char buff[MAX+1]; 
     int n; 
     for (;;) { 
         bzero(buff, sizeof(buff)); 
