@@ -14,7 +14,7 @@ public class Server
         // starts server and waits for a connection 
         try
         { 
-            server = new ServerSocket(port); 
+            server = new ServerSocket(8080);
             System.out.println("Client has been accepted"); 
             System.out.println("Hello!"); 
   
