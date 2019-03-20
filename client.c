@@ -28,7 +28,7 @@ int main()
     // assign IP, PORT 
     servaddr.sin_family = AF_INET; 
     servaddr.sin_addr.s_addr = inet_addr("192.168.81.130"); 
-    servaddr.sin_port = htons(PORT 8080); 
+    servaddr.sin_port = htons(PORT); 
   
     // connect the client socket to server socket 
     if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) 
