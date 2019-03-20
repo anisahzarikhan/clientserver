@@ -15,13 +15,10 @@ public class Server
         try
         { 
             server = new ServerSocket(port); 
-            System.out.println("Server has started"); 
-  
-            System.out.println("Waiting for a client to come in ..."); 
+            System.out.println("Client has been accepted"); 
+            System.out.println("Hello!"); 
   
             socket = server.accept(); 
-            System.out.println("Client has been accepted"); 
-            System.out.println("Hello!");
   
             // takes input from the client socket 
             in = new DataInputStream( 
