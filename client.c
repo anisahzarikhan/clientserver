@@ -33,11 +33,13 @@ int main()
     // connect the client socket to server socket 
     if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) 
     {  
+        printf("connection failed..\n");
         printf("What's Up!..\n");
         exit(0); 
     } 
     else
         printf("connected to the server..\n");
+        printf("Howdy!..\n");
         exit(0);
   
 } 
