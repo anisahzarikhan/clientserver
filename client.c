@@ -5,14 +5,13 @@
 #include <sys/socket.h> 
 #include <unistd.h>
 #include <arpa/inet.h>
-#define MAX 80 
 #define PORT 8080 
 #define SA struct sockaddr 
 
 int main() 
 { 
-    int sockfd, connfd; 
-    struct sockaddr_in servaddr, cli; 
+    int sockfd; 
+    struct sockaddr_in servaddr; 
   
     // socket create and varification 
     sockfd = socket(AF_INET, SOCK_STREAM, 0); 
@@ -40,9 +39,4 @@ int main()
         printf("connected to the server..\n");
         printf("What's Up!..\n");
   
-    // function for chat 
-    func(sockfd); 
-  
-    // close the socket 
-    close(sockfd); 
 } 
