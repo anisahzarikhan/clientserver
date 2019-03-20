@@ -33,10 +33,11 @@ int main()
     if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) 
     { 
         printf("connection with the server failed...\n"); 
+        printf("What's Up!..\n");
         exit(0); 
     } 
     else
         printf("connected to the server..\n");
-        printf("What's Up!..\n");
+        exit(0);
   
 } 
