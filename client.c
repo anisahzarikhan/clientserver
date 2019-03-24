@@ -22,7 +22,7 @@ int main()
     } 
     else
         printf("Socket successfully created..\n");
-        printf("Hello!!!\n");
+        printf("What's Up!\n");
     bzero(&servaddr, sizeof(servaddr)); 
   
     // assign IP, PORT 
@@ -34,7 +34,6 @@ int main()
     if (connect(sockfd, (SA*)&servaddr, sizeof(servaddr)) != 0) 
     {  
         printf("connection failed..\n");
-        printf("What's Up!..\n");
         exit(0); 
     } 
     else
