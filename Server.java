@@ -26,8 +26,8 @@ public class Server
   
             String line = ""; 
   
-            // reads message from client until "Over" is sent 
-            while (!line.equals("Over")) 
+            // reads message from client until "What's Up!" is sent 
+            while (!line.equals("What's Up!")) 
             { 
                 try
                 { 
