@@ -1,59 +1,32 @@
-import java.net.*; 
-import java.io.*; 
-  
-public class Server 
-{ 
-    //initialize socket and input stream 
-    private Socket          socket   = null; 
-    private ServerSocket    server   = null; 
-    private DataInputStream in       =  null; 
-  
-    // constructor with port 
-    public Server(int port) 
-    { 
-        // starts server and waits for a connection 
-        try
-        { 
-            server = new ServerSocket(8080);
-            System.out.println("Client has been accepted"); 
-            System.out.println("Hello!"); 
-  
-            socket = server.accept(); 
-  
-            // takes input from the client socket 
-            in = new DataInputStream( 
-                new BufferedInputStream(socket.getInputStream())); 
-  
-            String line = ""; 
-  
-            // reads message from client until "What's Up!" is sent 
-            while (!line.equals("What's Up!")) 
-            { 
-                try
-                { 
-                    line = in.readUTF(); 
-                    System.out.println(line); 
-  
-                } 
-                catch(IOException o) 
-                { 
-                    System.out.println(o); 
-                } 
-            }
-            System.out.println("Closing connection"); 
-  
-            // close connection 
-            socket.close(); 
-            in.close(); 
-        } 
-        catch(IOException o) 
-        { 
-            System.out.println(o); 
-        } 
-    } 
-  
-    public static void main(String args[]) 
-    { 
-        Server server = new Server(5000); 
-    } 
-} 
+import java.io.*;
+import java.net.*;
+public class GossipServer
+{
+  public static void main(String[] args) throws Exception
+  {
+      ServerSocket sersock = new ServerSocket(3000);
+      System.out.println("Server  ready for chatting");
+      Socket sock = sersock.accept( );                          
+                              // reading from keyboard (keyRead object)
+      BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
+	                      // sending to client (pwrite object)
+      OutputStream ostream = sock.getOutputStream(); 
+      PrintWriter pwrite = new PrintWriter(ostream, true);
+
+                              // receiving from server ( receiveRead  object)
+      InputStream istream = sock.getInputStream();
+      BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+
+      String receiveMessage, sendMessage;               
+      while(true)
+      {
+        if((receiveMessage = receiveRead.readLine()) != null)  
+        {
+           System.out.println(receiveMessage);         
+        }         
+        sendMessage = keyRead.readLine(); 
+        pwrite.println(sendMessage);             
+        pwrite.flush();
+      }               
+    }                    
+}                        
