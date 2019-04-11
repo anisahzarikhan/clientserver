@@ -17,13 +17,13 @@ class Server{
       Scanner s=new Scanner(System.in);
       
       Thread send=new Thread(new Runnable(){
-      String msg;
+      String message;
       @Override
       public void run(){
             while(true){
   
-                  msg=s.nextLine();
-                  out.print(msg);
+                  message=s.nextLine();
+                  out.print(message);
                   out.flush();
             }
       }
@@ -31,16 +31,16 @@ class Server{
       send.start();
       
       Thread receive=new Thread(new Runnable(){
-      String msg;
+      String message;
       @Override
       public void run(){
             while(true){
                   try{
-                        msg=in.readLine();
+                        message=in.readLine();
                   }catch(IOException e){
                         e.printStackTrace();
                   }
-                  System.out.print("Client: "+msg);
+                  System.out.print("Client: "+message);
             }
       }
       });
