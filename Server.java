@@ -1,60 +1,32 @@
-import java.net.*;
 import java.io.*;
-import java.lang.*;
-import java.util.*;
+import java.net.*;
 public class Server
 {
+  public static void main(String[] args) throws Exception
+  {
+      ServerSocket sersock = new ServerSocket(4444);
+      System.out.println("Server  ready for chatting");
+      Socket sock = sersock.accept( );                          
+                              // reading from keyboard (keyRead object)
+      BufferedReader keyRead = new BufferedReader(new InputStreamReader(System.in));
+	                      // sending to client (pwrite object)
+      OutputStream ostream = sock.getOutputStream(); 
+      PrintWriter pwrite = new PrintWriter(ostream, true);
 
-    public static void main (String[] args)
-    {
-      try{      
-      //Defining/opening connection
-      ServerSocket srvr = new ServerSocket(4444);
-      Socket skt = srvr.accept();
-      
-      InputStreamReader bf = new InputStreamReader(skt.getInputStream());
-      BufferedReader in= new BufferedReader(bf);
-      PrintWriter out = new PrintWriter(skt.getOutputStream(),true);
-      Scanner s=new Scanner(System.in);
-      
-      Thread send=new Thread(new Runnable(){
-      String message;
-      @Override
-      public void run(){
-            while(true){
-  
-                  message=s.nextLine();
-                  out.print(message);
-                  out.flush();
-            }
-      }
-      });
-      send.start();
-      
-      Thread receive=new Thread(new Runnable(){
-      String message;
-      @Override
-      public void run(){
-            while(true){
-                  try{
-                        message=in.readLine();
-                  }catch(IOException e){
-                        e.printStackTrace();
-                  }
-                  System.out.print("Client: "+message);
-            }
-      }
-      });
-      receive.start();
-            
-      
-      
-      //closing connection
-      //out.close();
-      //skt.close();
-      //srvr.close();
-      }catch (IOException e){
-            e.printStackTrace();
-      }
-    }
-}
+                              // receiving from server ( receiveRead  object)
+      InputStream istream = sock.getInputStream();
+      BufferedReader receiveRead = new BufferedReader(new InputStreamReader(istream));
+
+      String receiveMessage, sendMessage;               
+      while(true)
+      {
+        if((receiveMessage = receiveRead.readLine()) != null)  
+        {
+           System.out.println(receiveMessage);         
+        }         
+        sendMessage = keyRead.readLine(); 
+        pwrite.println(sendMessage);             
+        pwrite.flush();
+      }               
+    }                    
+}                        
