@@ -9,7 +9,7 @@ public class Server
     {
       try{      
       //Defining/opening connection
-      ServerSocket srvr = new ServerSocket(8080);
+      ServerSocket srvr = new ServerSocket(4444);
       Socket skt = srvr.accept();
       
       InputStreamReader bf = new InputStreamReader(skt.getInputStream());
