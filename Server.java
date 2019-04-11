@@ -2,7 +2,8 @@ import java.net.*;
 import java.io.*;
 import java.lang.*;
 import java.util.*;
-class Server{
+public class Server
+{
 
     public static void main (String[] args)
     {
