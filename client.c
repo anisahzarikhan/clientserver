@@ -1,51 +1,79 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
-#include <unistd.h>
-#include<string.h>
-int main()
+#include <netdb.h> 
+
+void error(const char *msg)
 {
-     printf("this is a client program\n");
-     struct sockaddr_in myaddr,clientaddr;
-     int newsockid;
-     int len;
-     int sockid,client_add;
-     sockid=socket(AF_INET,SOCK_STREAM,0);
-     if(sockid==-1)
-     perror("socket");
-     memset(&myaddr,0,sizeof myaddr);
-     myaddr.sin_port=htons(8080);
-     myaddr.sin_family=AF_INET;
-     myaddr.sin_addr.s_addr=inet_addr("127.0.0.1");
-     len=sizeof myaddr;
-      if((bind(sockid,(struct sockaddr*)&myaddr,sizeof myaddr))==-1)
-    perror("bind");
-     int p=connect(sockid,(struct sockaddr*)&myaddr,len);
-     if(p==-1)
-     perror("connect");
-     char msg[200];
-     int i=0;
-     char c;int l=0; char *buffer=(char *)(malloc(sizeof(char)*200)); int buffsize;
-     while(i<10)
-     {l=0;
-                printf("Client: ");
-                while((c=getchar())!='\n')
-                {
-            msg[l++]=c;
-                }
-                msg[l]='\0'; l++;
-                send(sockid,msg,l,0);
-                fflush(stdin);
-                newsockid=accept(sockid,(struct sockaddr*)&clientaddr,&client_add);
-                recv(newsockid,buffer,buffsize,0);
-                   l=0;
-                 fprintf(stdout, "server: %s", buffer);
-                  printf("\n");
-                i++;
-     }
-     close(sockid);
-     return 0;
+	perror(msg);
+	exit(0);
+}
+
+int main(int argc, char *argv[])
+{
+    
+    int server_port, socket_fd, n;
+    struct hostent *server_host;
+    struct sockaddr_in server_address;
+    char buff[333];
+
+    /* Get server hostname port */
+    if (argc < 3) 
+    {
+        printf(stderr "user %s hostname port", argv[0]);
+        exit(0);
+        
+    }
+
+    /* Get server port from command line arguments or stdin. */
+    server_port = atoi(argv[2]);
+    socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (socket_fd < 0)
+    error("socket failed");
+    
+    /* Get server host from server name. */
+    server_host = gethostbyname(argv[1]);
+    if (server_host == NULL)
+    {
+        printf(stderr, "Error, no host");
+        exit(0);
+    }
+
+    /* Initialise IPv4 server address with server host. */
+    bzero((char *) &server_address, sizeof (server_address));
+    server_address.sin_family = AF_INET;
+    bcopy((char *)server_host->h_addr,
+          (char *) &server_address.sin_addr.s_addr,
+          server_host->h_length); 
+          
+    server_address.sin_port = htons(server_port);
+
+    /* Connect to socket with server address. */
+    if (connect(socket_fd, (struct sockaddr *)&server_address, sizeof server_address)<0) 
+		perror("connect error");
+		printf("Client: ");
+        while(1);
+	{
+
+    bzero(buff,333);
+        fgets(buff,333,stdin);
+        n = write(socket_fd,buff,strlen(buff));
+        if (n < 0) 
+             error("socket write error");
+        bzero(buff,333);
+        n = read(socket_fd,buff,333);
+        if (n < 0) 
+             error("socket read error");
+        printf("Server : %s\n",buff);
+        int i = strncmp("Assalammualaikum..." , buff , 3);
+        if(i == 0)
+               break;
+	}
+    
+    close(socket_fd);
+    return 0;
 }
