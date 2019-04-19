@@ -5,11 +5,11 @@ public class Server
 { 
     //initialize socket and input stream 
     private Socket          socket   = null; 
-    private ServerSocket    Server   = null; 
+    private ServerSocket    server   = null; 
     private DataInputStream in       =  null; 
   
     // constructor with port 
-    public server(int port) 
+    public Server(int port) 
     { 
         // starts server and waits for a connection 
         try
@@ -19,7 +19,7 @@ public class Server
   
             System.out.println("Waiting for a client ..."); 
   
-            socket = Server.accept(); 
+            socket = server.accept(); 
             System.out.println("Client accepted"); 
   
             // takes input from the client socket 
