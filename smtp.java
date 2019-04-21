@@ -6,16 +6,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class AmazonSESSample {
+public class Server 
+{
 
     // Replace sender@example.com with your "From" address.
     // This address must be verified.
-    static final String FROM = "sender@example.com";
-    static final String FROMNAME = "Sender Name";
+    static final String FROM = "anisahzarikhan@gmail.com";
+    static final String FROMNAME = "Anisah Zarikhan";
 	
     // Replace recipient@example.com with a "To" address. If your account 
     // is still in the sandbox, this address must be verified.
-    static final String TO = "recipient@example.com";
+    static final String TO = "nisazarikhan55@gmail.com";
     
     // Replace smtp_username with your Amazon SES SMTP user name.
     static final String SMTP_USERNAME = "smtp_username";
