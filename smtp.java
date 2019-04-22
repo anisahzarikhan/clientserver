@@ -19,10 +19,10 @@ public class Server
     static final String TO = "nisazarikhan55@gmail.com";
     
     // Replace smtp_username with your Amazon SES SMTP user name.
-    static final String SMTP_USERNAME = "smtp_username";
+    static final String SMTP_USERNAME = "nisa_khan";
     
     // Replace smtp_password with your Amazon SES SMTP password.
-    static final String SMTP_PASSWORD = "smtp_password";
+    static final String SMTP_PASSWORD = "anisah97";
     
     // The name of the Configuration Set to use for this message.
     // If you comment out or remove this variable, you will also need to
@@ -32,12 +32,12 @@ public class Server
     // Amazon SES SMTP host name. This example uses the US West (Oregon) region.
     // See https://docs.aws.amazon.com/ses/latest/DeveloperGuide/regions.html#region-endpoints
     // for more information.
-    static final String HOST = "email-smtp.us-west-2.amazonaws.com";
+    static final String HOST = "email-smtp.gmail.com";
     
     // The port you will connect to on the Amazon SES SMTP endpoint. 
     static final int PORT = 587;
     
-    static final String SUBJECT = "Amazon SES test (SMTP interface accessed using Java)";
+    static final String SUBJECT = "gmail SES test (SMTP interface accessed using Java)";
     
     static final String BODY = String.join(
     	    System.getProperty("line.separator"),
