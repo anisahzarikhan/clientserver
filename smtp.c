@@ -17,7 +17,8 @@ struct log
 {
 char login[10];
 char pass[10]
-}logs[10];
+}
+logs[10];
 int opt,i=0;
 struct sockaddr_in address;
  FILE *file_to_send;
@@ -46,8 +47,9 @@ if(strcmp(fname,"EHLO")==0)
 {
 printf("\nSize extended:1000");
 }
-send(create_socket,fname,strlen(fname),0);
-         if((cont=recv(create_socket,buffer,bufsize,0))>0) {
+	send(create_socket,fname,strlen(fname),0);
+         if((cont=recv(create_socket,buffer,bufsize,0))>0) 
+	 {
 write(1,buffer,cont);
 memset(buffer,0,1024);
 memset(fname,0,256);
